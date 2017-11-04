@@ -1,4 +1,4 @@
-<section class="jumbotron text-center">
+<section class="jumbotron text-center mb-4">
     <div class="container">
         <h1 class="display-4">Add Place</h1>
         <p class="lead text-muted">Add a new place by searching through google place search</p>

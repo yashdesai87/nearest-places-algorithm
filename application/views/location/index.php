@@ -1,4 +1,4 @@
-<section class="jumbotron text-center">
+<section class="jumbotron text-center mb-4">
     <div class="container">
         <h1 class="display-4">Places</h1>
         <p class="lead text-muted">List all the places on the map and filter them based on nearest by the distance</p>
@@ -49,12 +49,16 @@
 		</div>
 	</div>
 
-	<div id="map_wrapper">
-	    <div id="map_canvas" class="mapping"></div>
-	</div>
+	<?php if(!empty($locations)): ?>
+		<div class="card mb-4">
+			<div id="map_wrapper">
+			    <div id="map_canvas" class="mapping"></div>
+			</div>
+		</div>
+	<?php endif; ?>
 
 	<?php if($this->session->flashdata('success_message')): ?>
-		<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
 			<?php echo $this->session->flashdata('success_message'); ?>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -63,7 +67,7 @@
 	<?php endif; ?>
 
 	<?php if($this->session->flashdata('error_message')): ?>
-		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
 			<?php echo $this->session->flashdata('error_message'); ?>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -76,8 +80,8 @@
 			<thead class="thead-light">
 				<tr>
 					<th scope="col" class="w-25 text-center">Name</th>
-					<th scope="col" class="w-50 text-center">Address</th>
-					<th scope="col" class="w-50 text-center">Distance</th>
+					<th scope="col" class="w-25 text-center">Address</th>
+					<th scope="col" class="w-25 text-center">Distance</th>
 					<th scope="col" class="w-25 text-center">Actions</th>
 				</tr>
 			</thead>
@@ -105,5 +109,17 @@
 	</div>
 </div>
 
+<script>
+	var locations = [];
+	<?php foreach($locations as $location): ?>
+	 	location_data = {
+	 		name: '<?php echo $location['name']; ?>',
+	 		latitude: '<?php echo $location['latitude']; ?>',
+	 		longitude: '<?php echo $location['longitude']; ?>',
+	 		address: '<?php echo $location['address']; ?>',
+	 	}
+    	locations.push(location_data);
+    <?php endforeach; ?>
+</script>
 <script src="<?php echo base_url('resources/js/location_index.js'); ?>"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY; ?>&libraries=places&callback=initAutocomplete"></script>
