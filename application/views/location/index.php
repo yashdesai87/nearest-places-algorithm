@@ -4,11 +4,54 @@
         <p class="lead text-muted">List all the places on the map and filter them based on nearest by the distance</p>
         <p>
             <a href="<?php echo site_url('location/add'); ?>" class="btn btn-primary">Add Location</a>
+            <a class="btn btn-secondary" data-toggle="collapse" href="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">Filter Locations</a>
         </p>
     </div>
 </section>
 
 <div class="container">
+
+	<div class="collapse <?php echo ($filter == TRUE) ? 'show' : ''; ?>" id="collapseFilter">
+		<div class="card mb-4">
+			<div class="card-header">
+				<label class="lead">Find Nearby Locations</label>
+			</div>
+			<div class="card-body">
+				<form method="post">
+					<?php if(validation_errors()): ?>
+						<div class="alert alert-danger" role="alert">
+							<?php echo validation_errors(); ?>
+						</div>
+					<?php endif; ?>
+					<div class="row">
+						<div class="col-md-5">
+							<input id="pac-input" type="text" name="address" class="form-control" onfocus="geolocate()" placeholder="Enter a location" value="<?php echo $this->input->post('address'); ?>">
+							<input name="latitude" id="latitude" type="hidden" value="<?php echo $this->input->post('latitude'); ?>">
+							<input name="longitude" id="longitude" type="hidden" value="<?php echo $this->input->post('longitude'); ?>">
+						</div>
+						<div class="col-md-4">
+							<div class="row">
+								<div class="col-md-6">
+									<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Radius (kms) [optional]" >
+								</div>
+								<div class="col-md-6">
+									<input name="radius" type="text" value="<?php echo $this->input->post('radius'); ?>" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<button class="btn btn-primary">Search</button>
+							<a class="btn btn-outline-secondary"href="<?php echo site_url(); ?>">Reset</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div id="map_wrapper">
+	    <div id="map_canvas" class="mapping"></div>
+	</div>
 
 	<?php if($this->session->flashdata('success_message')): ?>
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -34,6 +77,7 @@
 				<tr>
 					<th scope="col" class="w-25 text-center">Name</th>
 					<th scope="col" class="w-50 text-center">Address</th>
+					<th scope="col" class="w-50 text-center">Distance</th>
 					<th scope="col" class="w-25 text-center">Actions</th>
 				</tr>
 			</thead>
@@ -43,6 +87,7 @@
 						<tr>
 							<td scope="row" class="text-center"><?php echo $location['name']; ?></td>
 							<td scope="row" class="text-center"><?php echo ($location['address'] !== null) ? $location['address'] : "-"; ?></td>
+							<td scope="row" class="text-center"><?php echo ($filter == true) ? $location['distance'] . " kms" : "-"; ?></td>
 							<td scope="row" class="text-center">
 								<a href="<?php echo site_url('location/map/'.$location['id']) ?>" class="btn btn-outline-success btn-sm">View Map</a>
 								<a href="<?php echo site_url('location/edit/'.$location['id']) ?>" class="btn btn-outline-warning btn-sm">Edit</a>
@@ -59,3 +104,6 @@
 		</table>
 	</div>
 </div>
+
+<script src="<?php echo base_url('resources/js/location_index.js'); ?>"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY; ?>&libraries=places&callback=initAutocomplete"></script>

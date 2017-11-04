@@ -29,8 +29,38 @@ class Location extends CI_Controller {
 	 */
 	public function index()
 	{
-		// get all the locations
-		$data['locations'] = $this->Location_model->get_all_locations();
+		// set validation rules
+		$this->form_validation->set_rules('address', 'Location', 'required');
+		$this->form_validation->set_rules('latitude', 'Latitude', 'validate_latitude');
+		$this->form_validation->set_rules('longitude', 'Longitude', 'validate_longitude');
+
+		// set error messages for form validation
+		$this->form_validation->set_message('required', '%s is required');
+		$this->form_validation->set_message('validate_latitude', 'Latitude is invalid');
+		$this->form_validation->set_message('validate_longitude', 'Longitude is invalid');
+
+		// set error delimiters
+		$this->form_validation->set_error_delimiters('<span>', '</span>');
+
+		// check if form is valid
+		if($this->form_validation->run())
+		{
+			$search_data = array(
+				'from_latitude' => $this->input->post('latitude'),
+				'from_longitude' => $this->input->post('longitude'),
+				'radius' => $this->input->post('radius')
+			);
+
+			// get filtered locations
+			$data['locations'] = $this->Location_model->get_all_locations("distance ASC", $search_data);
+			$data['filter'] = true;
+		}
+		else
+		{
+			// get all the locations
+			$data['locations'] = $this->Location_model->get_all_locations();
+			$data['filter'] = false;
+		}
 
 		// set layout partial view
 		$data['_view'] = 'location/index';

@@ -14,9 +14,38 @@ class Location_model extends CI_Model {
 	 * @param 	NULl
 	 * @return  array (Returns all location data)
 	 */
-	public function get_all_locations()
+	public function get_all_locations($sort_by = "l.id ASC", $params = array())
 	{
-		return $this->db->get('locations')->result_array();
+		$latitude = 0;
+		$longitude = 0;
+		$having = "1 = 1";
+
+		if(isset($params['from_latitude']))
+		{
+			$latitude = $params['from_latitude'];
+		}
+
+		if(isset($params['from_longitude']))
+		{
+			$longitude = $params['from_longitude'];
+		}
+
+		if(isset($params['radius']) && $params['radius'] != null && $params['radius'] > 0)
+		{
+			$having .= " AND distance < ".$params['radius'];
+		}
+
+		$sql = "SELECT
+					l.*,
+					ROUND((3959 * acos(cos(radians(?)) * cos(radians(l.latitude)) * cos(radians(l.longitude) - radians(?)) + sin(radians(?)) * sin(radians(l.latitude))))) as distance
+				FROM
+					locations l
+				HAVING
+					$having
+				ORDER BY
+					$sort_by";
+
+		return $this->db->query($sql, array($latitude, $longitude, $latitude))->result_array();
 	}
 
 	/**
