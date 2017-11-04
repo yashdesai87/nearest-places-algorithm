@@ -25,20 +25,22 @@
 					<?php endif; ?>
 					<div class="row">
 						<div class="col-md-5">
-							<input id="pac-input" type="text" name="address" class="form-control" onfocus="geolocate()" placeholder="Enter a location" value="<?php echo $this->input->post('address'); ?>">
+							<input id="pac-input" type="text" name="address" class="form-control w-100" onfocus="geolocate()" placeholder="Enter a location" value="<?php echo $this->input->post('address'); ?>">
 							<input name="latitude" id="latitude" type="hidden" value="<?php echo $this->input->post('latitude'); ?>">
 							<input name="longitude" id="longitude" type="hidden" value="<?php echo $this->input->post('longitude'); ?>">
 						</div>
+						<div class="d-block d-sm-block d-md-none">&nbsp;</div>
 						<div class="col-md-4">
 							<div class="row">
 								<div class="col-md-6">
-									<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Radius (kms) [optional]" >
+									<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Radius (kms)" >
 								</div>
 								<div class="col-md-6">
-									<input name="radius" type="text" value="<?php echo $this->input->post('radius'); ?>" class="form-control">
+									<input name="radius" type="text" value="<?php echo $this->input->post('radius'); ?>" class="form-control" placeholder="Optional">
 								</div>
 							</div>
 						</div>
+						<div class="d-block d-sm-block d-md-none">&nbsp;</div>
 						<div class="col-md-3">
 							<button class="btn btn-primary">Search</button>
 							<a class="btn btn-outline-secondary"href="<?php echo site_url(); ?>">Reset</a>
