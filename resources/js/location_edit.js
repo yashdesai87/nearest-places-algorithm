@@ -31,7 +31,6 @@ function initMap() {
 		anchorPoint: new google.maps.Point(0, -29)
 	});
 
-	// call when address exists after form invalidates
 	if(latitude.value !== "" && longitude.value !== "") {
 		setLocation();
 	}

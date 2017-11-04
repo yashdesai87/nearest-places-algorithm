@@ -9,7 +9,7 @@
 	<form method="post">
 		<div class="form-group">
 			<label for="placeName">Name</label>
-			<input type="text" class="form-control" name="name" id="placeName" aria-describedby="nameHelp" placeholder="Enter name">
+			<input type="text" class="form-control" name="name" id="placeName" aria-describedby="nameHelp" placeholder="Enter name" value="<?php echo $this->input->post('name'); ?>">
 			<?php echo form_error("name"); ?>
 		</div>
 		<div class="form-group">
@@ -17,17 +17,17 @@
 			<div class="pac-card" id="pac-card">
 				<h3 class="bg-primary text-white p-2">Search</h3>
 				<div id="pac-container">
-					<input id="pac-input" type="text" name="address" class="form-control" placeholder="Type the address">
-					<input name="latitude" id="latitude" type="hidden">
-					<input name="longitude" id="longitude" type="hidden">
-					<input name="postcode" id="postcode" type="hidden">
+					<input id="pac-input" type="text" name="address" class="form-control" placeholder="Type the address" value="<?php echo $this->input->post('address'); ?>">
+					<input name="latitude" id="latitude" type="hidden" value="<?php echo $this->input->post('latitude'); ?>">
+					<input name="longitude" id="longitude" type="hidden" value="<?php echo $this->input->post('longitude'); ?>">
+					<input name="google_place_name" id="google_place_name" type="hidden" value="<?php echo $this->input->post('google_place_name'); ?>">
+					<input name="google_place_address" id="google_place_address" type="hidden" value="<?php echo $this->input->post('google_place_address'); ?>">
 				</div>
 			</div>
 			<div id="map-top">
 				<div id="map"></div>
 			</div>
 			<div id="infowindow-content">
-				<img src="" width="16" height="16" id="place-icon">
 				<span id="place-name"  class="title"></span><br>
 				<span id="place-address"></span>
 			</div>
