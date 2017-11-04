@@ -47,6 +47,7 @@ class Location extends CI_Controller {
 	 */
 	public function add()
 	{
+		// set validation rules
 		$this->form_validation->set_rules('name', 'Name', 'required|xss_clean');
 		$this->form_validation->set_rules('latitude', 'Latitude', 'required|validate_latitude');
 		$this->form_validation->set_rules('longitude', 'Longitude', 'required|validate_longitude');
@@ -54,14 +55,18 @@ class Location extends CI_Controller {
 		$this->form_validation->set_rules('google_place_name', 'Place name', 'xss_clean');
 		$this->form_validation->set_rules('google_place_address', 'Place address', 'xss_clean');
 
+		// set error messages for form validation
 		$this->form_validation->set_message('required', '%s is required');
 		$this->form_validation->set_message('validate_latitude', 'Latitude is invalid');
 		$this->form_validation->set_message('validate_longitude', 'Longitude is invalid');
 
+		// set error delimiters
 		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
 
+		// check if form is valid
 		if($this->form_validation->run())
 		{
+			// build the other location data
 			$other_data = array(
 				'google_place_name' => $this->input->post('google_place_name'),
 				'google_place_address' => $this->input->post('google_place_address'),
@@ -99,6 +104,8 @@ class Location extends CI_Controller {
 	 */
 	public function edit($location_id)
 	{
+		// check if location exists in db
+		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
 			$this->session->set_flashdata('error_message', 'Location not found');
@@ -106,6 +113,7 @@ class Location extends CI_Controller {
 			exit;
 		}
 
+		// set validation rules
 		$this->form_validation->set_rules('name', 'Name', 'required|xss_clean');
 		$this->form_validation->set_rules('latitude', 'Latitude', 'required|validate_latitude');
 		$this->form_validation->set_rules('longitude', 'Longitude', 'required|validate_longitude');
@@ -113,14 +121,18 @@ class Location extends CI_Controller {
 		$this->form_validation->set_rules('google_place_name', 'Place name', 'xss_clean');
 		$this->form_validation->set_rules('google_place_address', 'Place address', 'xss_clean');
 
+		// set error messages for form validation
 		$this->form_validation->set_message('required', '%s is required');
 		$this->form_validation->set_message('validate_latitude', 'Latitude is invalid');
 		$this->form_validation->set_message('validate_longitude', 'Longitude is invalid');
 
+		// set error delimiters
 		$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
 
+		// check if form is valid
 		if($this->form_validation->run())
 		{
+			// build the other location data
 			$other_data = array(
 				'google_place_name' => $this->input->post('google_place_name'),
 				'google_place_address' => $this->input->post('google_place_address'),
@@ -161,6 +173,8 @@ class Location extends CI_Controller {
 	 */
 	public function delete($location_id)
 	{
+		// check if location exists in db
+		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
 			$this->session->set_flashdata('error_message', 'Location not found');
@@ -191,6 +205,8 @@ class Location extends CI_Controller {
 	 */
 	public function map($location_id)
 	{
+		// check if location exists in db
+		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
 			$this->session->set_flashdata('error_message', 'Location not found');
