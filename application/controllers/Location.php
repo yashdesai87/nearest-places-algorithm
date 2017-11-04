@@ -182,4 +182,29 @@ class Location extends CI_Controller {
 		redirect();
 		exit;
 	}
+
+	/**
+	 * View location on map
+	 *
+	 * @param  integer $location_id (unique id of the location)
+	 * @return 	NULL
+	 */
+	public function map($location_id)
+	{
+		if(!$this->Location_model->check_if_location_is_valid($location_id))
+		{
+			$this->session->set_flashdata('error_message', 'Location not found');
+			redirect();
+			exit;
+		}
+
+		// get the particular location
+		$data['location'] = $this->Location_model->get_location_by_id($location_id);
+
+		// set layout partial view
+		$data['_view'] = 'location/map';
+
+		// set the basetemplate as main view
+		$this->load->view('layout/basetemplate', $data);
+	}
 }

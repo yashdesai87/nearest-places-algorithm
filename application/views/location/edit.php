@@ -34,7 +34,7 @@
 			<small id="nameHelp" class="form-text text-muted">Search place by typing in the box given on the map.</small>
 			<?php echo form_error("address"); ?>
 		</div>
-  		<button type="submit" class="btn btn-primary">Submit</button>
+  		<button type="submit" class="btn btn-primary">Save</button>
   		<a href="<?php echo site_url(); ?>" class="btn btn-secondary">Back</a>
 	</form>
 </div>

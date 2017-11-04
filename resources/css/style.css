@@ -1,3 +1,11 @@
+html, body {
+	height: 100%;
+}
+
+.h-600 {
+	height: 600px !important;
+}
+
 /*
  * Location add page css
  */

@@ -44,6 +44,7 @@
 							<td scope="row" class="text-center"><?php echo $location['name']; ?></td>
 							<td scope="row" class="text-center"><?php echo ($location['address'] !== null) ? $location['address'] : "-"; ?></td>
 							<td scope="row" class="text-center">
+								<a href="<?php echo site_url('location/map/'.$location['id']) ?>" class="btn btn-outline-success btn-sm">View Map</a>
 								<a href="<?php echo site_url('location/edit/'.$location['id']) ?>" class="btn btn-outline-warning btn-sm">Edit</a>
 								<a href="<?php echo site_url('location/delete/'.$location['id']) ?>" class="btn btn-outline-danger btn-sm">Delete</a>
 							</td>
