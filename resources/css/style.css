@@ -1,31 +1,23 @@
-html, body {
-	height: 100%;
-}
-
-.h-600 {
-	height: 600px !important;
-}
-
 /*
- * Location add page css
+ * Map css
  */
 #map {
 	height: 300px;
 	width: 100%;
 }
-
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
 #infowindow-content .title {
 	font-weight: bold;
 }
-
 #infowindow-content {
 	display: none;
 }
-
 #map #infowindow-content {
 	display: inline;
 }
-
 .pac-card {
 	margin: 10px 10px 0 0;
 	border-radius: 2px 0 0 2px;
@@ -36,24 +28,17 @@ html, body {
 	background-color: #fff;
 	font-family: Roboto;
 }
-
 #pac-container {
 	padding: 4px 12px 12px;
 }
-
 #pac-input {
 	text-overflow: ellipsis;
 	width: 400px;
 }
 
 /*
- * Location listing page css
+ * Custom CSS
  */
-#map_wrapper {
-	height: 500px;
-    width: 100%;
-}
-#map_canvas {
-    width: 100%;
-    height: 100%;
+.h-600 {
+	height: 600px !important;
 }
