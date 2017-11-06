@@ -14,7 +14,7 @@
             <header>
                 <div class="navbar navbar-dark bg-dark">
                     <div class="container d-flex justify-content-between">
-                        <a href="<?php echo site_url(); ?>" class="navbar-brand">Nearby Places Algorithm</a>
+                        <a href="<?php echo site_url(); ?>" class="navbar-brand">Nearest Places Algorithm</a>
                     </div>
                 </div>
             </header>
