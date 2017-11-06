@@ -35,11 +35,13 @@ class Location extends CI_Controller {
 		$this->form_validation->set_rules('address', 'Location', 'required');
 		$this->form_validation->set_rules('latitude', 'Latitude', 'validate_latitude');
 		$this->form_validation->set_rules('longitude', 'Longitude', 'validate_longitude');
+		$this->form_validation->set_rules('radius', 'Radius', 'is_numeric');
 
 		// set error messages for form validation
 		$this->form_validation->set_message('required', '%s is required');
 		$this->form_validation->set_message('validate_latitude', 'Latitude is invalid');
 		$this->form_validation->set_message('validate_longitude', 'Longitude is invalid');
+		$this->form_validation->set_message('is_numeric', '%s should be a number');
 
 		// set error delimiters
 		$this->form_validation->set_error_delimiters('<span>', '</span>');
