@@ -87,4 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*
  * Define the google API key
  */
-define('GOOGLE_API_KEY', 'AIzaSyC9Ht5sjTDxvR4QiFU8EapALTvmKYB1YXw'); // replace this key with your google app key
+define('GOOGLE_API_KEY', 'AIzaSyC9Ht5sjTDxvR4QiFU8EapALTvmKYB1YXw'); // replace this key with your google api key

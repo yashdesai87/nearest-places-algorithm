@@ -11,7 +11,7 @@
 
 <div class="container">
 
-	<div class="collapse <?php echo ($filter == TRUE) ? 'show' : ''; ?>" id="collapseFilter">
+	<div class="collapse <?php echo ($submit == TRUE) ? 'show' : ''; ?>" id="collapseFilter">
 		<div class="card mb-4">
 			<div class="card-header">
 				<label class="lead">Find Nearby Locations</label>
@@ -29,19 +29,18 @@
 							<input name="latitude" id="latitude" type="hidden" value="<?php echo $this->input->post('latitude'); ?>">
 							<input name="longitude" id="longitude" type="hidden" value="<?php echo $this->input->post('longitude'); ?>">
 						</div>
-						<div class="d-block d-sm-block d-md-none">&nbsp;</div>
-						<div class="col-md-4">
+						<div class="col-md-5">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-4">
 									<input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Radius (kms)" >
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-8">
 									<input name="radius" type="text" value="<?php echo $this->input->post('radius'); ?>" class="form-control" placeholder="Optional">
 								</div>
 							</div>
 						</div>
 						<div class="d-block d-sm-block d-md-none">&nbsp;</div>
-						<div class="col-md-3">
+						<div class="col-md-2 text-right">
 							<button class="btn btn-primary">Search</button>
 							<a class="btn btn-outline-secondary"href="<?php echo site_url(); ?>">Reset</a>
 						</div>
@@ -50,14 +49,6 @@
 			</div>
 		</div>
 	</div>
-
-	<?php if(!empty($locations)): ?>
-		<div class="card mb-4">
-			<div id="map_wrapper">
-			    <div id="map_canvas" class="mapping"></div>
-			</div>
-		</div>
-	<?php endif; ?>
 
 	<?php if($this->session->flashdata('success_message')): ?>
 		<div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
@@ -74,6 +65,14 @@
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
+		</div>
+	<?php endif; ?>
+
+	<?php if(!empty($locations)): ?>
+		<div class="card mb-4">
+			<div id="map">
+			    <div id="map_canvas" class="mapping"></div>
+			</div>
 		</div>
 	<?php endif; ?>
 
@@ -119,9 +118,22 @@
 	 		latitude: '<?php echo $location['latitude']; ?>',
 	 		longitude: '<?php echo $location['longitude']; ?>',
 	 		address: '<?php echo $location['address']; ?>',
+	 		color: '<?php echo $location['marker_color']; ?>',
+	 		label: '<?php echo $location['marker_label']; ?>',
 	 	}
     	locations.push(location_data);
     <?php endforeach; ?>
+    <?php if($filter == true): ?>
+    	location_data = {
+	 		name: '<?php echo $from_location['name']; ?>',
+	 		latitude: '<?php echo $from_location['latitude']; ?>',
+	 		longitude: '<?php echo $from_location['longitude']; ?>',
+	 		address: '<?php echo $from_location['address']; ?>',
+	 		color: '<?php echo $from_location['marker_color']; ?>',
+	 		label: '<?php echo $from_location['marker_label']; ?>',
+	 	}
+    	locations.push(location_data);
+    <?php endif; ?>
 </script>
 <script src="<?php echo base_url('resources/js/location_index.js'); ?>"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLE_API_KEY; ?>&libraries=places&callback=initAutocomplete"></script>

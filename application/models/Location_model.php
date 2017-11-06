@@ -16,10 +16,12 @@ class Location_model extends CI_Model {
 	 */
 	public function get_all_locations($sort_by = "l.id ASC", $params = array())
 	{
+		// set default values for params
 		$latitude = 0;
 		$longitude = 0;
 		$having = "1 = 1";
 
+		// set the params if filtered
 		if(isset($params['from_latitude']))
 		{
 			$latitude = $params['from_latitude'];
@@ -32,12 +34,14 @@ class Location_model extends CI_Model {
 
 		if(isset($params['radius']) && $params['radius'] != null && $params['radius'] > 0)
 		{
-			$having .= " AND distance < ".$params['radius'];
+			$having .= " AND distance <= ".$params['radius'];
 		}
 
 		$sql = "SELECT
 					l.*,
-					ROUND((3959 * acos(cos(radians(?)) * cos(radians(l.latitude)) * cos(radians(l.longitude) - radians(?)) + sin(radians(?)) * sin(radians(l.latitude))))) as distance
+					ROUND((3959 * acos(cos(radians(?)) * cos(radians(l.latitude)) * cos(radians(l.longitude) - radians(?)) + sin(radians(?)) * sin(radians(l.latitude))))) as distance, -- calculate distance between 2 points
+					'P' as marker_label, -- set default marker label
+					'red' as marker_color -- set default marker color
 				FROM
 					locations l
 				HAVING
@@ -100,6 +104,7 @@ class Location_model extends CI_Model {
 			'address' => $address,
 		);
 
+		// set optional data for location
 		if(isset($other_data['google_place_name']))
 			$location_data['google_place_name'] = $other_data['google_place_name'];
 
@@ -130,6 +135,7 @@ class Location_model extends CI_Model {
 			'address' => $address,
 		);
 
+		// set optional data for location
 		if(isset($other_data['google_place_name']))
 			$location_data['google_place_name'] = $other_data['google_place_name'];
 

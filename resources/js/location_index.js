@@ -62,7 +62,7 @@ function initialize() {
     // Multiple Markers
     var markers = [];
     for (var i = locations.length - 1; i >= 0; i--) {
-    	markers.push([locations[i].name, locations[i].latitude, locations[i].longitude]);
+    	markers.push([locations[i].name, locations[i].latitude, locations[i].longitude, locations[i].color, locations[i].label]);
     }
 
     // Info Window Content
@@ -80,10 +80,16 @@ function initialize() {
     for( i = 0; i < markers.length; i++ ) {
         var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
         bounds.extend(position);
+        var color = 'yellow';
         marker = new google.maps.Marker({
             position: position,
             map: map,
-            title: markers[i][0]
+            title: markers[i][0],
+            label: markers[i][4],
+            icon: {
+				url: 'http://maps.google.com/mapfiles/ms/icons/' + markers[i][3] + '.png',
+				labelOrigin: new google.maps.Point(15, 10)
+			},
         });
         
         // Allow each marker to have an info window    

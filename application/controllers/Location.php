@@ -18,6 +18,8 @@ class Location extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
+		// load the Location_model
 		$this->load->model('Location_model');
 	}
 
@@ -42,9 +44,33 @@ class Location extends CI_Controller {
 		// set error delimiters
 		$this->form_validation->set_error_delimiters('<span>', '</span>');
 
+		// set submit to true
+		// if form submitted
+		if($this->input->post())
+		{
+			$data['submit'] = true;
+		}
+		else
+		{
+			$data['submit'] = false;
+		}
+
 		// check if form is valid
 		if($this->form_validation->run())
 		{
+			// set filter to true
+			$data['filter'] = true;
+
+			// build the start location array
+			$data['from_location'] = array(
+				'name' => 'Start Point',
+				'latitude' => $this->input->post('latitude'),
+				'longitude' => $this->input->post('longitude'),
+				'address' => $this->input->post('address'),
+				'marker_color' => 'yellow',
+				'marker_label' => 'S',
+			);
+
 			$search_data = array(
 				'from_latitude' => $this->input->post('latitude'),
 				'from_longitude' => $this->input->post('longitude'),
@@ -53,13 +79,14 @@ class Location extends CI_Controller {
 
 			// get filtered locations
 			$data['locations'] = $this->Location_model->get_all_locations("distance ASC", $search_data);
-			$data['filter'] = true;
 		}
 		else
 		{
+			// set filter default to false
+			$data['filter'] = false;
+
 			// get all the locations
 			$data['locations'] = $this->Location_model->get_all_locations();
-			$data['filter'] = false;
 		}
 
 		// set layout partial view
@@ -104,6 +131,7 @@ class Location extends CI_Controller {
 
 			$add_location = $this->Location_model->add_location($this->input->post('name'), $this->input->post('latitude'), $this->input->post('longitude'), $this->input->post('address'), $other_data);
 
+			// set the success / error flash message
 			if($add_location == TRUE) 
 			{
 				$this->session->set_flashdata('success_message', 'Location added successfully');
@@ -138,6 +166,7 @@ class Location extends CI_Controller {
 		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
+			// set the success / error flash message
 			$this->session->set_flashdata('error_message', 'Location not found');
 			redirect();
 			exit;
@@ -170,6 +199,7 @@ class Location extends CI_Controller {
 
 			$edit_location = $this->Location_model->edit_location($location_id, $this->input->post('name'), $this->input->post('latitude'), $this->input->post('longitude'), $this->input->post('address'), $other_data);
 
+			// set the success / error flash message
 			if($edit_location == TRUE) 
 			{
 				$this->session->set_flashdata('success_message', 'Location updated successfully');
@@ -207,6 +237,7 @@ class Location extends CI_Controller {
 		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
+			// set the success / error flash message
 			$this->session->set_flashdata('error_message', 'Location not found');
 			redirect();
 			exit;
@@ -214,6 +245,7 @@ class Location extends CI_Controller {
 
 		$delete_location = $this->Location_model->delete_location($location_id);
 
+		// set the success / error flash message
 		if($delete_location == TRUE) 
 		{
 			$this->session->set_flashdata('success_message', 'Location deleted successfully');
@@ -239,6 +271,7 @@ class Location extends CI_Controller {
 		// if not then redirect with error message
 		if(!$this->Location_model->check_if_location_is_valid($location_id))
 		{
+			// set the success / error flash message
 			$this->session->set_flashdata('error_message', 'Location not found');
 			redirect();
 			exit;
