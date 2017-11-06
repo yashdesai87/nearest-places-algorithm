@@ -4,8 +4,8 @@
 
 function initMap() {
 	var map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: -33.8688, lng: 151.2195},
-		zoom: 13
+		center: {lat: 20.593684, lng: 78.96288000000004},
+		zoom: 6
 	});
 	var card = document.getElementById('pac-card');
 	var input = document.getElementById('pac-input');
