@@ -20,6 +20,11 @@ function initAutocomplete() {
 	// fields in the form.
 	autocomplete.addListener('place_changed', fillInAddress);
 
+    // prevent page refresh on clicking enter for google place selections
+    $('form').keypress(function(e) { 
+        return e.keyCode != 13;
+    });
+
 	if(typeof initialize == "function") {
 		initialize();
 	}

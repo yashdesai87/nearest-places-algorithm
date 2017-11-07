@@ -31,6 +31,11 @@ function initMap() {
 		anchorPoint: new google.maps.Point(0, -29)
 	});
 
+	// prevent page refresh on clicking enter for google place selections
+	$('form').keypress(function(e) { 
+	    return e.keyCode != 13;
+	});
+		
 	// call when address exists after form invalidates
 	if(latitude.value !== "" && longitude.value !== "") {
 		setLocation();
