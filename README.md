@@ -7,6 +7,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Git clone the project
 * Import database from db folder `nearest_places_algorithm.sql`
+* Add few locations and then filter them from a certain location (starting point) giving the distance between them and showing only places within a given radius
 
 ## Built With
 
