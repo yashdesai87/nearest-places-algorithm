@@ -5,6 +5,9 @@ Get all the nearest locations within a certain radius or list all places by near
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
+* Git clone the project
+* Import database added in db folder `nearest_places_algorithm.sql`
+
 ## Built With
 
 * [Codeigniter 3.1.6](https://codeigniter.com/docs) - The web framework used
